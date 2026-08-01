@@ -1,7 +1,9 @@
 import { create } from "axios"
 
+import { ENV } from "@/src/config/env"
+
 const apiClient = create({
-  baseURL: "http://192.168.1.13:8085",
+  baseURL: ENV.API_URL,
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",
