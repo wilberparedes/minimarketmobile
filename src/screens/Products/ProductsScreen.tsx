@@ -1,8 +1,16 @@
+import ProductService from "@/src/services/ProductService"
+import { useEffect } from "react"
 import { StyleSheet, Text } from "react-native"
 
 import { SafeAreaView } from "react-native-safe-area-context"
 
 const ProductsScreen = () => {
+  useEffect(() => {
+    ProductService.getProducts()
+      .then((products) => console.log(products))
+      .catch(console.error)
+  }, [])
+
   return (
     <SafeAreaView style={styles.container}>
       <Text>Products Screen</Text>
