@@ -1,9 +1,5 @@
-import { SafeAreaView, Text } from "react-native"
+import RootNavigator from "./src/navigation/navigators/RootNavigator"
 
 export default function App() {
-  return (
-    <SafeAreaView>
-      <Text>Mini Market</Text>
-    </SafeAreaView>
-  )
+  return <RootNavigator />
 }
