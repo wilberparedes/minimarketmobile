@@ -1,50 +1,206 @@
-# Welcome to your Expo app 👋
+# Mini Market - Mobile
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Aplicación desarrollada en React Native Expo.
 
-## Get started
+Permite consultar productos, ver su detalle y guardar favoritos de forma local.
 
-1. Install dependencies
+---
 
-   ```bash
-   npm install
-   ```
+## Demo
 
-2. Start the app
+[![Mini Market Demo](docs/images/1.jpeg)](https://youtube.com/shorts/p5ktg1cVU-A)
+click para ver
 
-   ```bash
-   npx expo start
-   ```
+--
 
-In the output, you'll find options to open the app in a
+## Tecnologías
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- React Native
+- Expo SDK 54
+- TypeScript
+- React Navigation
+- Zustand
+- Axios
+- AsyncStorage
+- Jest
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+---
 
-## Get a fresh project
+## Requisitos
 
-When you're ready, run:
+- Node.js 22+
+- Yarn
+- Expo Go o Android Studio / Xcode
+
+---
+
+## Instalación
+
+Clonar el proyecto.
 
 ```bash
-npm run reset-project
+git clone https://github.com/wilberparedes/minimarketmobile.git
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Entrar a la carpeta.
 
-## Learn more
+```bash
+cd mini-market
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+Instalar dependencias.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+yarn
+```
 
-## Join the community
+Iniciar la aplicación.
 
-Join our community of developers creating universal apps.
+```bash
+yarn start
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Android.
+
+```bash
+yarn android
+```
+
+iOS.
+
+```bash
+yarn ios
+```
+
+---
+
+## Ejecutar pruebas
+
+```bash
+yarn test
+```
+
+---
+
+## Estructura del proyecto
+
+```
+src
+├── api
+├── components
+├── config
+├── hooks
+├── navigation
+├── screens
+├── services
+├── store
+├── types
+```
+
+---
+
+## Funcionalidades
+
+### Lista de productos
+
+- Consulta los productos desde el backend.
+- Pull to Refresh.
+- Skeleton mientras carga la información.
+- Manejo de errores.
+- Navegación al detalle.
+
+### Detalle del producto
+
+- Consulta un producto por id.
+- Carrusel de imágenes.
+- Información completa.
+- Agregar o quitar de favoritos.
+
+### Favoritos
+
+- Persistencia usando AsyncStorage.
+- Estado global con Zustand.
+- Lista de favoritos.
+- Actualización automática al modificar un favorito.
+
+---
+
+## Arquitectura
+
+Se intentó mantener una estructura sencilla separando responsabilidades.
+
+```
+Screen
+    ↓
+Hook
+    ↓
+Service
+    ↓
+API
+```
+
+Los componentes contienen únicamente lógica de presentación.
+
+Los hooks administran el estado de cada pantalla.
+
+Los servicios se encargan de la comunicación con el backend.
+
+---
+
+## Decisiones tomadas
+
+- Zustand fue elegido para manejar el estado global por ser una solución simple para este tamaño de aplicación.
+- AsyncStorage se utilizó para persistir los favoritos entre sesiones.
+- React Navigation se usó para la navegación mediante Bottom Tabs y Stack.
+- Axios centraliza todas las llamadas HTTP.
+
+---
+
+## Testing
+
+Se agregaron pruebas unitarias para:
+
+- Favorite Store
+- Product Service
+
+Las pruebas utilizan Jest y React Native Testing Library.
+
+---
+
+## Posibles mejoras
+
+Si el proyecto continuara, algunas mejoras serían:
+
+- Paginación de productos.
+- Búsqueda y filtros.
+- Internacionalización.
+- Cobertura de pruebas más amplia.
+- Caché de productos.
+
+---
+
+## Screenshots
+
+### Products
+
+![Products](docs/images/1.jpeg)
+
+---
+
+### Product Detail
+
+![Product Detail](docs/images/3.jpeg)
+![Product Detail](docs/images/4.jpeg)
+
+---
+
+### Favorites
+
+![Favorites](docs/images/2.jpeg)
+![Favorites](docs/images/5.jpeg)
+
+---
+
+## Autor
+
+Wilber Paredes
