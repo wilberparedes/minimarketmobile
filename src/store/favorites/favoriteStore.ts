@@ -1,25 +1,44 @@
 import { create } from "zustand"
 
-import { Product } from "@/src/types/Product"
+import FavoriteStorage from "@/src/services/FavoriteStorage"
 
 import { FavoriteState } from "./favorite.types"
 
 export const useFavoriteStore = create<FavoriteState>((set, get) => ({
   favorites: [],
-  addFavorite: (product: Product) =>
+
+  addFavorite: (product) =>
     set((state) => ({
       favorites: [...state.favorites, product],
     })),
-  removeFavorite: (productId: number) =>
+  removeFavorite: (productId) =>
     set((state) => ({
-      favorites: state.favorites.filter(
-        (favorite) => favorite.id !== productId,
-      ),
+      favorites: state.favorites.filter((item) => item.id !== productId),
     })),
-  isFavorite: (productId: number) =>
-    get().favorites.some((favorite) => favorite.id === productId),
-  setFavorites: (favorites: Product[]) =>
+  isFavorite: (productId) =>
+    get().favorites.some((item) => item.id === productId),
+
+  setFavorites: (favorites) => set({ favorites }),
+
+  loadFavorites: async () => {
+    const favorites = await FavoriteStorage.getFavorites()
+
+    set({ favorites })
+  },
+
+  toggleFavorite: async (product) => {
+    const favorites = get().favorites
+
+    const exists = favorites.some((item) => item.id === product.id)
+
+    const updated = exists
+      ? favorites.filter((item) => item.id !== product.id)
+      : [...favorites, product]
+
     set({
-      favorites,
-    }),
+      favorites: updated,
+    })
+
+    await FavoriteStorage.saveFavorites(updated)
+  },
 }))
