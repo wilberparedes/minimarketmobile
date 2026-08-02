@@ -35,4 +35,21 @@ export default StyleSheet.create({
     fontSize: 28,
     fontWeight: "700",
   },
+  button: {
+    marginTop: 32,
+    borderRadius: 12,
+    paddingVertical: 16,
+    alignItems: "center",
+  },
+  buttonFavorite: {
+    backgroundColor: "#EF4444",
+  },
+  buttonNotFavorite: {
+    backgroundColor: "#2563EB",
+  },
+  buttonText: {
+    color: "#FFFFFF",
+    fontWeight: "700",
+    fontSize: 16,
+  },
 })

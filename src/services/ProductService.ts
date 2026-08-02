@@ -4,13 +4,11 @@ import { Product } from "@/src/types/Product"
 class ProductService {
   async getProducts(): Promise<Product[]> {
     const response = await apiClient.get<Product[]>("/products")
-    console.log(response)
     return response.data
   }
 
   async getProductById(id: number): Promise<Product> {
     const response = await apiClient.get<Product>(`/products/${id}`)
-
     return response.data
   }
 }

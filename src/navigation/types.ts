@@ -1,12 +1,15 @@
+export type ProductDetailParams = {
+  productId: number
+}
+
 export type ProductsStackParamList = {
   Products: undefined
-  ProductDetail: {
-    productId: number
-  }
+  ProductDetail: ProductDetailParams
 }
 
 export type FavoritesStackParamList = {
   Favorites: undefined
+  ProductDetail: ProductDetailParams
 }
 
 export type BottomTabParamList = {
