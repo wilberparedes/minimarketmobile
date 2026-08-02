@@ -52,12 +52,12 @@ function SkeletonCard() {
   )
 }
 
-export default function LoadingView() {
+export default function LoadingView({ total = 3 }: { total?: number }) {
   return (
     <View style={styles.container}>
-      <SkeletonCard />
-      <SkeletonCard />
-      <SkeletonCard />
+      {Array.from({ length: Math.max(0, total) }).map((_, index) => (
+        <SkeletonCard key={index} />
+      ))}
     </View>
   )
 }
