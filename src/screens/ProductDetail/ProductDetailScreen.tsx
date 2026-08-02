@@ -1,21 +1,52 @@
-import { FlatList, Image, ScrollView, Text, View } from "react-native"
+import {
+  FlatList,
+  Image,
+  Pressable,
+  ScrollView,
+  Text,
+  View,
+} from "react-native"
 
-import { NativeStackScreenProps } from "@react-navigation/native-stack"
+import { RouteProp } from "@react-navigation/native"
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withSequence,
+  withSpring,
+} from "react-native-reanimated"
 
 import ErrorView from "@/src/components/ErrorView"
 import LoadingView from "@/src/components/LoadingView"
 import useProduct from "@/src/hooks/useProduct"
 
-import { ProductsStackParamList } from "@/src/navigation/types"
+import { useFavoriteStore } from "@/src/store/favorites"
+
+import { ProductDetailParams } from "@/src/navigation/types"
 
 import styles from "./ProductDetailScreen.styles"
 
-type Props = NativeStackScreenProps<ProductsStackParamList, "ProductDetail">
+type ProductDetailParamList = {
+  ProductDetail: ProductDetailParams
+}
+
+type Props = {
+  route: RouteProp<ProductDetailParamList, "ProductDetail">
+}
 
 export default function ProductDetailScreen({ route }: Props) {
   const { productId } = route.params
 
   const { product, loading, error, loadProduct } = useProduct(productId)
+  const { toggleFavorite, isFavorite } = useFavoriteStore()
+
+  const scale = useSharedValue(1)
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [
+      {
+        scale: scale.value,
+      },
+    ],
+  }))
 
   if (loading) {
     return <LoadingView total={1} />
@@ -28,6 +59,8 @@ export default function ProductDetailScreen({ route }: Props) {
   if (!product) {
     return null
   }
+
+  const favorite = isFavorite(product.id)
 
   return (
     <View style={styles.container}>
@@ -54,6 +87,22 @@ export default function ProductDetailScreen({ route }: Props) {
             <Text style={styles.rating}>⭐ {product.rating}</Text>
             <Text style={styles.price}>${product.price.toFixed(2)}</Text>
           </View>
+          <Animated.View style={animatedStyle}>
+            <Pressable
+              style={[
+                styles.button,
+                favorite ? styles.buttonFavorite : styles.buttonNotFavorite,
+              ]}
+              onPress={async () => {
+                scale.value = withSequence(withSpring(1.25), withSpring(1))
+                await toggleFavorite(product)
+              }}
+            >
+              <Text style={styles.buttonText}>
+                {favorite ? "❤️ Quitar de Favoritos" : "🤍 Añadir a Favoritos"}
+              </Text>
+            </Pressable>
+          </Animated.View>
         </View>
       </ScrollView>
     </View>
