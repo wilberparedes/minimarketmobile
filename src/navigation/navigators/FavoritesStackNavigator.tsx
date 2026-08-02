@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 
 import FavoritesScreen from "../../screens/Favorites/FavoritesScreen"
+import ProductDetailScreen from "../../screens/ProductDetail/ProductDetailScreen"
 
 import { FavoritesStackParamList } from "../types"
 
@@ -18,6 +19,14 @@ export default function FavoritesStackNavigator() {
         component={FavoritesScreen}
         options={{
           title: "Favoritos",
+        }}
+      />
+
+      <Stack.Screen
+        name="ProductDetail"
+        component={ProductDetailScreen}
+        options={{
+          title: "Detalle",
         }}
       />
     </Stack.Navigator>
